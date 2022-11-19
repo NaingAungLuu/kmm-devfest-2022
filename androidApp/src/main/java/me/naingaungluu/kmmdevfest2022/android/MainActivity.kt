@@ -21,8 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ramcosta.composedestinations.DestinationsNavHost
 import kotlinx.coroutines.flow.collectLatest
 import me.naingaungluu.kmmdevfest2022.Greeting
+import me.naingaungluu.kmmdevfest2022.android.screens.NavGraphs
+import me.naingaungluu.kmmdevfest2022.android.screens.movieList.MovieListViewModel
+import me.naingaungluu.kmmdevfest2022.data.network.KtorClient
+import me.naingaungluu.kmmdevfest2022.data.network.MovieApiImpl
+import me.naingaungluu.kmmdevfest2022.data.repositories.MovieRepositoryImpl
+import me.naingaungluu.kmmdevfest2022.domain.usecases.GetAllMoviesUseCase
 
 @Composable
 fun MyApplicationTheme(
@@ -68,20 +75,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-
-                var textResult by remember { mutableStateOf("") }
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(textResult)
-                }
-
-                LaunchedEffect(Unit) {
-                    Greeting().greeting().collectLatest {
-                        textResult = it
-                    }
+                    DestinationsNavHost(navGraph = NavGraphs.root)
                 }
             }
         }

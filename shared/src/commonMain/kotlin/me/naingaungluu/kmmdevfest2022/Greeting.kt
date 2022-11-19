@@ -29,7 +29,7 @@ class Greeting {
                 MovieApiImpl(KtorClient.instance)
             )
         )
-        return useCase().map {
+        return useCase.execute().map {
             it.first().title
         }
     }
